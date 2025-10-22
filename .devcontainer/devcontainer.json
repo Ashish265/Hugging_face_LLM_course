@@ -1,15 +1,37 @@
 {
-  "name": "Hugging Face LLM course",
+  "name": "Hugging face llm course",
   "build": {
+    "context": "..",
     "dockerfile": "Dockerfile"
   },
-  "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash"
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "extensions": [
-    "ms-python.python",
-    "ms-toolsai.jupyter"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+  "forwardPorts": [8000],
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
   ],
-  "forwardPorts": [8888],
-  "postCreateCommand": "pip install -r requirements.txt"
+  "shutdownAction": "stopContainer"
 }
