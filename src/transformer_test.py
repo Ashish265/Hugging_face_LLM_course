@@ -11,3 +11,10 @@ print(
         candidate_labels=["education", "politics", "business"],
     )
 )
+
+generator = pipeline("text-generation")
+print(
+    generator(
+        "In this course, we will teach you how to",
+    )
+)
